@@ -2,7 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ChatService } from './shared/chat.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import {debounceTime, take, takeUntil} from 'rxjs/operators';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 import { ChatMessage } from './shared/chat-message.model';
 import { ChatClient } from './shared/chat-client.model';
 
@@ -17,9 +17,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   messageFc = new FormControl('');
 
   messages: ChatMessage[] = [];
-  clientsTyping: ChatClient[] = [];
-  clients$: Observable<ChatClient[]> | undefined;
   chatClient: ChatClient | undefined;
+  clients$: Observable<ChatClient[]> | undefined;
+  clientsTyping: ChatClient[] = [];
   unsubscribe$ = new Subject();
   error$: Observable<string> | undefined;
 
@@ -36,7 +36,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$)
       )
       .subscribe(message => { // subscribe to make it happen
-        this.messages.push(message); // add any new messages to array
+        this.messages.push(message); // add new messages to array
       });
 
     // Tell server if client is typing
@@ -62,7 +62,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         }
       });
 
-    // Get up to speed on all previous messages
+    // On welcome get all previous messages and store this chatClient in service
     this.chatService.listenForWelcome()
       .pipe(
         takeUntil(this.unsubscribe$)
@@ -72,28 +72,26 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.chatClient = this.chatService.chatClient = welcome.client;
       });
 
-    // ??????
+    // If the chatClient has been set send nickname to service
     if (this.chatService.chatClient) {
       this.chatService.sendNickname(this.chatService.chatClient.nickname);
     }
-
-    // this.chatService.connect();
   }
 
   // Custom cleanup when component is destroyed
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-    // this.chatService.disconnect(); // do not disconnect when leaving the page
     // console.log('Destroyed');
   }
 
   sendMessage(): void {
     console.log(this.messageFc.value);
     this.chatService.sendMessage(this.messageFc.value);
+    this.messageFc.reset('');
   }
 
-  sendNickName(): void {
+  sendNickname(): void {
     if (this.nicknameFc.value) {
       this.chatService.sendNickname(this.nicknameFc.value);
     }
