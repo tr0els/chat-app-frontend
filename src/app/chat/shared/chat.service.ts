@@ -6,11 +6,11 @@ import { ChatMessage } from './chat-message.model';
 import { WelcomeDTO } from './welcome.dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // make service visible throughout the application
 })
+
 export class ChatService {
-  // instance variable of the chat client
-  // notice this is kept in the service so available everywhere
+  // Instance variables
   chatClient: ChatClient | undefined;
 
   constructor(private socket: Socket) { }
