@@ -1,3 +1,6 @@
 <a routerLink="/">Home</a> ----
-<a routerLink="/chats">Go to Chats <span *ngIf="clients$ | async as clients">({{clients.length}} online)</span></a>
+<a routerLink="/chats">Chat</a>
+<span *ngIf="clients$ | async as clients"> ({{clients.length}} online)</span>
+<span *ngIf="unreadMessages > 0"> ({{unreadMessages}} new message)</span>
+
 <router-outlet></router-outlet>

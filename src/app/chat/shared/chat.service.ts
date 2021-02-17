@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatClient } from './chat-client.model';
 import { ChatMessage } from './chat-message.model';
 import { WelcomeDTO } from './welcome.dto';
@@ -10,10 +10,13 @@ import { WelcomeDTO } from './welcome.dto';
 })
 
 export class ChatService {
-  // Instance variables
-  chatClient: ChatClient | undefined;
+  private numUnreadMessages: BehaviorSubject<number>;
+  isChatActive: boolean;
+  chatClient: ChatClient;
 
-  constructor(private socket: Socket) { }
+  constructor(private socket: Socket) {
+    this.numUnreadMessages = new BehaviorSubject<number>(1);
+  }
 
   sendMessage(msg: string): void {
     this.socket.emit('message', msg);
@@ -50,6 +53,14 @@ export class ChatService {
 
   sendNickname(nickname: string): void {
     this.socket.emit('nickname', nickname);
+  }
+
+  getNumUnreadMessages(): Observable<number> {
+    return this.numUnreadMessages.asObservable();
+  }
+
+  setNumUnreadMessages(newValue): void {
+    this.numUnreadMessages.next(newValue);
   }
 
   disconnect(): void {

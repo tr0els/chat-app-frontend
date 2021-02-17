@@ -26,6 +26,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
+    console.log('Chat active');
+    this.chatService.isChatActive = true;
+    this.chatService.setNumUnreadMessages(0);
+
     // Subscribes using async in html
     this.clients$ = this.chatService.listenForClients();
     this.error$ = this.chatService.listenForErrors();
@@ -82,7 +86,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-    // console.log('Destroyed');
+    this.chatService.isChatActive = false;
+    console.log('Chat inactive');
   }
 
   sendMessage(): void {
