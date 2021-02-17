@@ -15,7 +15,7 @@ export class ChatService {
   chatClient: ChatClient;
 
   constructor(private socket: Socket) {
-    this.numUnreadMessages = new BehaviorSubject<number>(1);
+    this.numUnreadMessages = new BehaviorSubject<number>(0);
   }
 
   sendMessage(msg: string): void {

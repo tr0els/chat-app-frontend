@@ -1,6 +1,14 @@
-<a routerLink="/">Home</a> ----
-<a routerLink="/chats">Chat</a>
-<span *ngIf="clients$ | async as clients"> ({{clients.length}} online)</span>
-<span *ngIf="unreadMessages > 0"> ({{unreadMessages}} new message)</span>
+<nav class="navigation-bar">
+  <h1>ChatApp</h1>
+  <ul>
+    <li><a routerLink="/">Home</a></li>
+    <li>
+      <a routerLink="/chats">Projects</a>
+      <span *ngIf="clients$ | async as clients"> ({{clients.length}} online)</span>
+      <span *ngIf="unreadMessages > 0"> ({{unreadMessages}} new message)</span>
+    </li>
+  </ul>
+</nav>
+<br><br>
 
 <router-outlet></router-outlet>
