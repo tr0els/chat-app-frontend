@@ -4,14 +4,15 @@ import { CommonModule } from '@angular/common';
 import { ChatRoutingModule } from './chat-routing.module';
 import { ChatComponent } from './chat.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 
 @NgModule({
   declarations: [ChatComponent],
   imports: [
     CommonModule,
     ChatRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxEmojiPickerModule,
   ]
 })
 export class ChatModule { }

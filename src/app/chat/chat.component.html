@@ -107,7 +107,7 @@
       <div class="input-group">
         <input type="text" [formControl]="messageFc" class="form-control form-control-lg" placeholder="Indtast en besked">
         <div class="input-group-append">
-          <button class="btn btn-outline-primary" type="button">😊</button>
+          <button class="btn btn-outline-primary" type="button" (click)="toggled = !toggled" [(emojiPickerIf)]="toggled" [emojiPickerDirection]="'top'" (emojiPickerSelect)="handleSelection($event)">😄</button>
           <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
         </div>
       </div>

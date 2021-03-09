@@ -25,6 +25,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   currentDate = new Date();
 
+  toggled = false;
+
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
@@ -107,6 +109,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   isClientTyping(id): boolean {
     const index = this.clientsTyping.findIndex(x => x.id === id);
     return index !== -1;
+  }
+
+  handleSelection(event): void {
+    this.messageFc.setValue(this.messageFc.value + event.char);
   }
 }
 
