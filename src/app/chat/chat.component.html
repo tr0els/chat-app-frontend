@@ -1,9 +1,9 @@
-<div class="row wrapper shadow">
+<div class="wrapper shadow">
   <div *ngIf="error$ | async as error" style="color: darkred">
     {{error}}
   </div>
 
-  <div *ngIf="!chatClient" class="mx-auto p-5">
+  <div *ngIf="!chatClient" class="mx-auto p-5" style="width: 500px;">
     <h2>Velkommen til chatten!
       <span class="wave">👋</span>
     </h2>
@@ -11,8 +11,7 @@
     <div class="form-group">
       <label for="exampleInputEmail1">Hvad vil du hedde?</label>
       <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Indtast navn" [formControl]="nicknameFc">
-      <br/>
-      <button class="btn btn-primary" (click)="sendNickname()">Luk mig ind</button>
+      <button class="btn btn-primary mt-3" (click)="sendNickname()">Luk mig ind</button>
     </div>
   </div>
 
@@ -64,77 +63,62 @@
     </div>
   </div>
 
-  <div *ngIf="chatClient" class="col">
-  <div id="content" >
-    <h4 *ngFor="let chatMessage of messages">
-      ({{chatMessage.sent | date: 'HH:mm'}}) {{chatMessage.sender.nickname}}: {{chatMessage.message}}
-    </h4>
+  <div *ngIf="chatClient" id="content-wrapper">
 
-    <div class="text-center" style="color: #AAA">9. Marts 2021 kl. 21:21</div>
-    <div class="media p-2">
-      <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-2 rounded-circle" style="width:35px;">
-      <div style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
-        <span style="font-weight: bold;">John Doe</span><small style="margin-left: 8px; color: #AAA">23:55</small><br>
-        <span>Anybody out there?</span><br>
+  <div id="content">
+    <div class="text-center" style="color: #AAA">{{ currentDate | date: 'EEEE d. MMMM y' }}</div>
+
+    <div *ngFor="let message of messages">
+      <div class="media message" [ngClass]="{'right': chatClient.nickname === message.sender.nickname}">
+        <img *ngIf="chatClient.nickname !== message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar2.png">
+        <div>
+          <b>{{message.sender.nickname}}</b><small>{{message.sent | date: 'HH:mm'}}</small><br>
+          <span>{{message.message}}</span><br>
+        </div>
+        <img *ngIf="chatClient.nickname === message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
       </div>
+      <div class="clearfix"></div>
     </div>
 
-    <div class="media p-2">
-      <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-2 rounded-circle" style="width:35px;">
-      <div style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
-        <span style="font-weight: bold;">John Doe</span><small style="margin-left: 8px; color: #AAA">23:55</small><br>
-        <span style="">I am here bro, just fetched some coffee from the kitchen What are you up to?</span><br>
-      </div>
-    </div>
 
-    <div class="media p-2">
-      <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-2 rounded-circle" style="width:35px;">
-      <div class="" style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
-        <span style="font-weight: bold;">John Doe</span><small style="margin-left: 8px; color: #aaaaaa">23:55</small><br>
-        <span>Lorem ipsum...</span><br>
-      </div>
-    </div>
-
-    <div class="media p-2 float-right">
-      <div class="" style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #fafde6; border-radius: 25px 5px 25px 25px;">
-        <span style="font-weight: bold; font-size: 16px">John Doe</span><small style="margin-left: 8px; color: #AAA">23:55</small><br>
-        <span>Lorem ipsum... </span><br>
-      </div>
-      <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="ml-2 rounded-circle" style="width:35px;">
-    </div>
     <div class="clearfix"></div>
 
-    <h5 *ngIf="clientsTyping.length === 0">&nbsp;</h5>
-    <h5 *ngIf="clientsTyping.length === 1">
-      <span *ngFor="let client of clientsTyping">{{client.nickname}}</span>
+    <div *ngIf="clientsTyping.length === 0" class="typing">&nbsp;</div>
+    <div *ngIf="clientsTyping.length === 1" class="typing">
+      <span *ngFor="let client of clientsTyping">
+        {{client.nickname}}
+      </span>
       skriver en besked
-    </h5>
-    <h5 *ngIf="clientsTyping.length === 2">
+    </div>
+    <div *ngIf="clientsTyping.length === 2" class="typing">
       <span *ngFor="let client of clientsTyping; let i = index">
         {{client.nickname}}{{i === clientsTyping.length - 1 ? '' : ' og '}}
       </span>
       skriver en besked
-    </h5>
-    <h5 *ngIf="clientsTyping.length > 2">
-      <span *ngFor="let client of clientsTyping; let i = index">
-        <span *ngIf="i < 3">{{client.nickname}}{{i < 2 ? ', ' : ''}}</span>
+    </div>
+    <div *ngIf="clientsTyping.length > 2">
+      <span *ngFor="let client of clientsTyping; let i = index" class="typing">
+        <span *ngIf="i < 2">{{client.nickname}}{{i < 1 ? ', ' : ''}}</span>
       </span>
-      og {{clientsTyping.length - 3}} {{clientsTyping.length - 2 === 1 ? "anden" : "andre"}} skriver en besked
-    </h5>
-  </div>
-
-  <div id="">
-
-
-    <div class="input-group mb-3 mt-2">
-      <input type="text" [formControl]="messageFc" class="form-control" placeholder="Indtast en besked">
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
-      </div>
+      og {{clientsTyping.length - 2}} {{clientsTyping.length - 2 === 1 ? "anden" : "andre"}} skriver en besked
     </div>
-
-
-
   </div>
+<div class="row pl-4 pt-1 pr-1">
+  <div class="input-group">
+    <input type="text" [formControl]="messageFc" class="form-control form-control-lg" placeholder="Indtast en besked">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="button">😊</button>
+      <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
     </div>
+  </div>
 </div>
+  </div>
+    </div>
+
+
+
+<input placeholder="Type a message. Hit Enter to send" type="text" (blur)="onBlur()" (focus)="onFocus()"
+       name="message" [formControl]="message"> <button (click)="toggleEmojiPicker()">😀</button><br>
+<emoji-mart class="emoji-mart" set="{{set}}" *ngIf="showEmojiPicker" (emojiSelect)="addEmoji($event)" title="Pick your emoji…"></emoji-mart>
+{{message.toString()}}
+
