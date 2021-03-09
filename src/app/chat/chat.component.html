@@ -5,11 +5,11 @@
 
   <div *ngIf="!chatClient" class="mx-auto p-5">
     <h2>Velkommen til chatten!
-      <img style="width: 42px;" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/265/waving-hand_1f44b.png">
+      <span class="wave">👋</span>
     </h2>
     <br/>
     <div class="form-group">
-      <label for="exampleInputEmail1">Hvad vil du hedde i dag?</label>
+      <label for="exampleInputEmail1">Hvad vil du hedde?</label>
       <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Indtast navn" [formControl]="nicknameFc">
       <br/>
       <button class="btn btn-primary" (click)="sendNickname()">Luk mig ind</button>
@@ -73,7 +73,7 @@
     <div class="text-center" style="color: #AAA">9. Marts 2021 kl. 21:21</div>
     <div class="media p-2">
       <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-2 rounded-circle" style="width:35px;">
-      <div class="" style="margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
+      <div style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
         <span style="font-weight: bold;">John Doe</span><small style="margin-left: 8px; color: #AAA">23:55</small><br>
         <span>Anybody out there?</span><br>
       </div>
@@ -81,7 +81,7 @@
 
     <div class="media p-2">
       <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-2 rounded-circle" style="width:35px;">
-      <div style="margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
+      <div style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
         <span style="font-weight: bold;">John Doe</span><small style="margin-left: 8px; color: #AAA">23:55</small><br>
         <span style="">I am here bro, just fetched some coffee from the kitchen What are you up to?</span><br>
       </div>
@@ -89,14 +89,14 @@
 
     <div class="media p-2">
       <img src="https://www.w3schools.com/bootstrap4/img_avatar3.png" alt="John Doe" class="mr-2 rounded-circle" style="width:35px;">
-      <div class="" style="margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
+      <div class="" style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #f2f8fc; border-radius: 5px 25px 25px 25px;">
         <span style="font-weight: bold;">John Doe</span><small style="margin-left: 8px; color: #aaaaaa">23:55</small><br>
         <span>Lorem ipsum...</span><br>
       </div>
     </div>
 
     <div class="media p-2 float-right">
-      <div class="" style="margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #bad6ec; border-radius: 25px 5px 25px 25px;">
+      <div class="" style="box-shadow: 1px 1px 1px 0px #EFEFEF; margin-top: 10px; padding: 8px 16px 12px 16px; background-color: #fafde6; border-radius: 25px 5px 25px 25px;">
         <span style="font-weight: bold; font-size: 16px">John Doe</span><small style="margin-left: 8px; color: #AAA">23:55</small><br>
         <span>Lorem ipsum... </span><br>
       </div>
@@ -127,9 +127,8 @@
 
 
     <div class="input-group mb-3 mt-2">
-      <input type="text" [formControl]="messageFc" class="form-control form-control-lg" placeholder="Indtast en besked">
+      <input type="text" [formControl]="messageFc" class="form-control" placeholder="Indtast en besked">
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button">:)</button>
         <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
       </div>
     </div>
