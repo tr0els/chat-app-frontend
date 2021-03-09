@@ -1,25 +1,101 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+.container {}
+.nav-bar {
+  width: 100%;
+  height: 100px;
+}
+.nav-bar .logo {
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px 20px 0 0;
+  font-size: 42px;
+  font-weight: 500;
+  text-shadow: 1px 2px 0px #acacac;
+}
 
-.navigation-bar {
-  width: 100%;  /* i'm assuming full width */
-  height: 80px; /* change it to desired width */
-  background-color: red; /* change to desired color */
+.nav-bar .logo a,
+.nav-bar .logo a:hover {
+  color: #e2e2e2;
+  text-decoration: none;
 }
-.logo {
-  display: inline-block;
-  vertical-align: top;
-  width: 50px;
-  height: 50px;
-  margin-right: 20px;
-  margin-top: 15px;    /* if you want it vertically middle of the navbar. */
-}
-.navigation-bar ul {
+
+.nav-bar ul {
   display: inline-block;
 }
-.navigation-bar li {
+.nav-bar li {
   display: inline-block;
-  vertical-align: top;
-  margin-right: 20px;
-  height: 80px;        /* if you want it to take the full height of the bar */
-  line-height: 80px;    /* if you want it vertically middle of the navbar */
+  margin: 30px 20px 0 0;
+  padding: 10px;
+  line-height: 20px;
+  text-shadow: 2px 2px 4px lightgray;
+}
+
+.nav-bar .tags {
+  position: absolute;
+  font-size: 12px;
+  color: white;
+  font-weight: bold;
+  margin: -48px 0 0 0px;
+}
+
+.nav-bar .tags span {
+  border-radius: 9px 9px 9px 0;
+  padding: 2px 7px;
+}
+.nav-bar .tags span.online {
+  background-color: lightgrey; //a5e36e
+}
+.nav-bar .tags span.messages {
+  background-color: deepskyblue;
+  margin-left: 5px;
+}
+
+$hover: #a5e36e;
+$brown: #5a5858;
+$whitey: #f0f0f0;
+
+$duration: .2s;
+$distance: 8px;
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+
+.nav-bar li a {
+  font-size: 20px;
+  color: $brown;
+  position: relative;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding-bottom: 8px;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0; right: 0;
+    height: 2px;
+    background-color: $hover;
+  }
+  &:before {
+    opacity: 0;
+    transform: translateY(- $distance);
+    transition: transform 0s $easeOutBack, opacity 0s;
+  }
+  &:after {
+    opacity: 0;
+    transform: translateY($distance/2);
+    transition: transform $duration $easeOutBack, opacity $duration;
+  }
+  &:hover,
+  &:focus {
+    &:before,
+    &:after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &:before {
+      transition: transform $duration $easeOutBack, opacity $duration;
+    }
+    &:after {
+      transition: transform 0s $duration $easeOutBack, opacity 0s $duration;
+    }
+  }
 }

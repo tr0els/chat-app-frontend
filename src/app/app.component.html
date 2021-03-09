@@ -1,14 +1,17 @@
-<nav class="navigation-bar">
-  <h1>ChatApp</h1>
-  <ul>
-    <li><a routerLink="/">Home</a></li>
-    <li>
-      <a routerLink="/chats">Projects</a>
-      <span *ngIf="clients$ | async as clients"> ({{clients.length}} online)</span>
-      <span *ngIf="unreadMessages > 0"> ({{unreadMessages}} new message)</span>
-    </li>
-  </ul>
-</nav>
-<br><br>
-
-<router-outlet></router-outlet>
+<div class="container">
+  <nav class="nav-bar">
+    <h1 class="logo"><a routerLink="/">Chats & Stocks</a></h1>
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li>
+        <a routerLink="/chats">Chat</a>
+        <div class="tags">
+          <span class="online" *ngIf="clients$ | async as clients">{{clients.length}} online</span>
+          <span class="messages" *ngIf="unreadMessages > 0">{{unreadMessages}}+</span>
+        </div>
+      </li>
+      <li><a routerLink="/">Stocks</a></li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

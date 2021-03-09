@@ -1,0 +1,83 @@
+.wrapper {
+  border-radius: 30px 30px 30px 3px;
+  border: 10px solid white;
+  //background-image: linear-gradient(to bottom, #f6f6f6, white 100px);
+  height: 450px;
+}
+
+#sidepanel {
+  width: 250px;
+  background: #344a60;
+  color: white;
+  border-radius: 25px 25px 25px 3px;
+  height: 100%;
+}
+
+#sidepanel #profile img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 0px;
+  border: 3px solid #94f12a;
+  margin: 0 7px 0 12px;
+}
+
+#sidepanel #contacts ul {
+  list-style-type: none;
+  margin-top: 18px;
+  padding: 0 10px 0 10px;
+  overflow-y: auto;
+  height: 308px;
+}
+
+#sidepanel #contacts li {
+  background-color: #3c556e;
+  margin-bottom: 7px;
+  border-radius: 30px;
+}
+
+#sidepanel #contacts li:last-child {
+  margin: 0;
+}
+
+#sidepanel #contacts img.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+
+#sidepanel #contacts .typing {
+  margin: 14px 3px 0 0;
+  float: right;
+  width: 7px;
+  height: 7px;
+  color: #819bae;
+}
+
+#sidepanel {
+  ::-webkit-scrollbar-thumb {
+    background: #506580;
+    border-radius: 8px;
+  }
+}
+
+#content {
+  height: 360px;
+  overflow-y: auto;
+}
+/*
+#content:hover {
+  overflow-y: scroll;
+}*/
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #dadee3;
+    border-radius: 8px;
+}
+

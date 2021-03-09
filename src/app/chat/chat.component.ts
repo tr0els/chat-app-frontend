@@ -53,7 +53,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.chatService.sendTyping(value.length > 0); // true if length > 0
       });
 
-    // Listen for other clients typing - also add/remove self to list (why is this necessary? we already listen for clients typing)
+    // Listen for other clients typing - also add/remove self to list (why? we already listen for clients typing. Faster?)
     this.chatService.listenForClientTyping()
       .pipe(
         takeUntil(this.unsubscribe$)
@@ -101,4 +101,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.chatService.sendNickname(this.nicknameFc.value);
     }
   }
+
+  isClientTyping(id): boolean {
+    const index = this.clientsTyping.findIndex(x => x.id === id);
+    return index !== -1;
+  }
 }
+
