@@ -24,18 +24,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   error$: Observable<string> | undefined;
 
   currentDate = new Date();
-  message = new FormControl('');
-  showEmojiPicker = false;
-  sets = [
-    'native',
-    'google',
-    'twitter',
-    'facebook',
-    'emojione',
-    'apple',
-    'messenger'
-  ]
-  set = 'twitter';
 
   constructor(private chatService: ChatService) { }
 
@@ -119,27 +107,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   isClientTyping(id): boolean {
     const index = this.clientsTyping.findIndex(x => x.id === id);
     return index !== -1;
-  }
-
-  onFocus(): void {
-    // console.log('focus');
-    this.showEmojiPicker = false;
-  }
-
-  onBlur(): void {
-    console.log('onblur');
-  }
-
-  toggleEmojiPicker(): void {
-    console.log(this.showEmojiPicker);
-    this.showEmojiPicker = !this.showEmojiPicker;
-  }
-
-  addEmoji(event): void {
-    const { message } = this;
-    const text = '${message}${event.emoji.native}';
-    this.messageFc.value(text);
-    // this.showEmojiPicker = false;
   }
 }
 

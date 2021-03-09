@@ -65,60 +65,52 @@
 
   <div *ngIf="chatClient" id="content-wrapper">
 
-  <div id="content">
-    <div class="text-center" style="color: #AAA">{{ currentDate | date: 'EEEE d. MMMM y' }}</div>
+    <div id="content">
+      <div class="text-center" style="color: #AAA">{{ currentDate | date: 'EEEE d. MMMM y' }}</div>
 
-    <div *ngFor="let message of messages">
-      <div class="media message" [ngClass]="{'right': chatClient.nickname === message.sender.nickname}">
-        <img *ngIf="chatClient.nickname !== message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar2.png">
-        <div>
-          <b>{{message.sender.nickname}}</b><small>{{message.sent | date: 'HH:mm'}}</small><br>
-          <span>{{message.message}}</span><br>
+      <div *ngFor="let message of messages">
+        <div class="media message" [ngClass]="{'right': chatClient.nickname === message.sender.nickname}">
+          <img *ngIf="chatClient.nickname !== message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar2.png">
+          <div>
+            <b>{{message.sender.nickname}}</b><small>{{message.sent | date: 'HH:mm'}}</small><br>
+            <span>{{message.message}}</span><br>
+          </div>
+          <img *ngIf="chatClient.nickname === message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
         </div>
-        <img *ngIf="chatClient.nickname === message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
+        <div class="clearfix"></div>
       </div>
+
+
       <div class="clearfix"></div>
-    </div>
 
-
-    <div class="clearfix"></div>
-
-    <div *ngIf="clientsTyping.length === 0" class="typing">&nbsp;</div>
-    <div *ngIf="clientsTyping.length === 1" class="typing">
-      <span *ngFor="let client of clientsTyping">
-        {{client.nickname}}
-      </span>
-      skriver en besked
+      <div *ngIf="clientsTyping.length === 0" class="typing">&nbsp;</div>
+      <div *ngIf="clientsTyping.length === 1" class="typing">
+        <span *ngFor="let client of clientsTyping">
+          {{client.nickname}}
+        </span>
+        skriver en besked
+      </div>
+      <div *ngIf="clientsTyping.length === 2" class="typing">
+        <span *ngFor="let client of clientsTyping; let i = index">
+          {{client.nickname}}{{i === clientsTyping.length - 1 ? '' : ' og '}}
+        </span>
+        skriver en besked
+      </div>
+      <div *ngIf="clientsTyping.length > 2">
+        <span *ngFor="let client of clientsTyping; let i = index" class="typing">
+          <span *ngIf="i < 2">{{client.nickname}}{{i < 1 ? ', ' : ''}}</span>
+        </span>
+        og {{clientsTyping.length - 2}} {{clientsTyping.length - 2 === 1 ? "anden" : "andre"}} skriver en besked
+      </div>
     </div>
-    <div *ngIf="clientsTyping.length === 2" class="typing">
-      <span *ngFor="let client of clientsTyping; let i = index">
-        {{client.nickname}}{{i === clientsTyping.length - 1 ? '' : ' og '}}
-      </span>
-      skriver en besked
-    </div>
-    <div *ngIf="clientsTyping.length > 2">
-      <span *ngFor="let client of clientsTyping; let i = index" class="typing">
-        <span *ngIf="i < 2">{{client.nickname}}{{i < 1 ? ', ' : ''}}</span>
-      </span>
-      og {{clientsTyping.length - 2}} {{clientsTyping.length - 2 === 1 ? "anden" : "andre"}} skriver en besked
-    </div>
-  </div>
-<div class="row pl-4 pt-1 pr-1">
-  <div class="input-group">
-    <input type="text" [formControl]="messageFc" class="form-control form-control-lg" placeholder="Indtast en besked">
-    <div class="input-group-append">
-      <button class="btn btn-outline-primary" type="button">😊</button>
-      <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
+    <div class="row pl-4 pt-1 pr-1">
+      <div class="input-group">
+        <input type="text" [formControl]="messageFc" class="form-control form-control-lg" placeholder="Indtast en besked">
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary" type="button">😊</button>
+          <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-  </div>
-    </div>
-
-
-
-<input placeholder="Type a message. Hit Enter to send" type="text" (blur)="onBlur()" (focus)="onFocus()"
-       name="message" [formControl]="message"> <button (click)="toggleEmojiPicker()">😀</button><br>
-<emoji-mart class="emoji-mart" set="{{set}}" *ngIf="showEmojiPicker" (emojiSelect)="addEmoji($event)" title="Pick your emoji…"></emoji-mart>
-{{message.toString()}}
-
