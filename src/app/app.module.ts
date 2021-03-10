@@ -18,7 +18,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AppRoutingModule,
     SocketIoModule.forRoot(config),
     [NgbModule],
-    NgxEmojiPickerModule.forRoot(),
+    //NgxEmojiPickerModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
