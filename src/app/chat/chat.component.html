@@ -68,14 +68,13 @@
     <div id="content">
       <div class="text-center" style="color: #AAA">{{ currentDate | date: 'EEEE d. MMMM y' }}</div>
 
-      <div *ngFor="let message of messages">
-        <div class="media message" [ngClass]="{'right': chatClient.nickname === message.sender.nickname}">
-          <img *ngIf="chatClient.nickname !== message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar2.png">
+      <div *ngFor="let message of messages" class="row">
+        <div class="media message" [ngClass]="{'right ml-auto flex-row-reverse': chatClient.nickname === message.sender.nickname}">
+          <img src="https://www.w3schools.com/bootstrap4/img_avatar2.png">
           <div>
             <b>{{message.sender.nickname}}</b><small>{{message.sent | date: 'HH:mm'}}</small><br>
             <span>{{message.message}}</span><br>
           </div>
-          <img *ngIf="chatClient.nickname === message.sender.nickname" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
         </div>
         <div class="clearfix"></div>
       </div>

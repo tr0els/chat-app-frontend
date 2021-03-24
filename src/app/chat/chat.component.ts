@@ -2,7 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ChatService } from './shared/chat.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { debounceTime, take, takeUntil } from 'rxjs/operators';
+import {debounceTime, subscribeOn, take, takeUntil} from 'rxjs/operators';
 import { ChatMessage } from './shared/chat-message.model';
 import { ChatClient } from './shared/chat-client.model';
 
@@ -25,8 +25,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   currentDate = new Date();
 
-  toggled = false;
-
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
@@ -37,6 +35,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     // Subscribes using async in html
     this.clients$ = this.chatService.listenForClients();
     this.error$ = this.chatService.listenForErrors();
+
+    // If chatClient exists in chat service send nickname details again
+    if (this.chatService.chatClient) {
+      this.chatService.sendNickname(this.chatService.chatClient.nickname); // "login"
+    }
 
     // Listen for new messages
     this.chatService.listenForMessages()
@@ -57,16 +60,16 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.chatService.sendTyping(value.length > 0); // true if length > 0
       });
 
-    // Listen for other clients typing - also add/remove self to list (why? we already listen for clients typing. Faster?)
+    // Listen for changes when a client starts/stops typing
     this.chatService.listenForClientTyping()
       .pipe(
         takeUntil(this.unsubscribe$)
       )
       .subscribe((chatClient) => {
-        if (chatClient.typing && !this.clientsTyping.find((c) => c.id === chatClient.id)) { // add client if typing and not in list
+        if (chatClient.typing && !this.clientsTyping.find((c) => c.id === chatClient.id)) { // add the client if typing and not in list
           this.clientsTyping.push(chatClient);
         } else {
-          this.clientsTyping = this.clientsTyping.filter((c) => c.id !== chatClient.id); // remove client if not typing but in list
+          this.clientsTyping = this.clientsTyping.filter((c) => c.id !== chatClient.id); // remove the client if not typing but in list
         }
       });
 
@@ -77,13 +80,24 @@ export class ChatComponent implements OnInit, OnDestroy {
       )
       .subscribe(welcome => {
         this.messages = welcome.messages;
-        this.chatClient = this.chatService.chatClient = welcome.client;
+        this.chatClient = this.chatService.chatClient = welcome.client; // assignment right to left
       });
 
-    // If the chatClient has been set send nickname to service
-    if (this.chatService.chatClient) {
-      this.chatService.sendNickname(this.chatService.chatClient.nickname);
-    }
+    this.chatService.listenForBackendConnect()
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe((id) => {
+        console.log('connect id', id);
+      });
+
+    this.chatService.listenForBackendDisconnect()
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe((id) => {
+        console.log('disconnect id', id);
+      });
   }
 
   // Custom cleanup when component is destroyed

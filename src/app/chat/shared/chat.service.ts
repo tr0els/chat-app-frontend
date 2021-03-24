@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, pipe } from 'rxjs';
 import { ChatClient } from './chat-client.model';
 import { ChatMessage } from './chat-message.model';
 import { WelcomeDTO } from './welcome.dto';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root' // make service visible throughout the application
@@ -18,8 +19,8 @@ export class ChatService {
     this.numUnreadMessages = new BehaviorSubject<number>(0);
   }
 
-  sendMessage(msg: string): void {
-    this.socket.emit('message', msg);
+  sendMessage(message: string): void {
+    this.socket.emit('message', message);
   }
 
   sendTyping(typing: boolean): void {
@@ -51,6 +52,30 @@ export class ChatService {
       .fromEvent<string>('error');
   }
 
+
+  // wrap the two methods in a listenForConnection method
+  // connected to backend
+  listenForBackendConnect(): Observable<string> {
+    return this.socket
+      .fromEvent<string>('connect')
+      .pipe(
+        map(() => {
+          return this.socket.ioSocket.id;
+        })
+      );
+  }
+
+  // disconnected from backend
+  listenForBackendDisconnect(): Observable<string> {
+    return this.socket
+      .fromEvent<string>('disconnect')
+      .pipe(
+        map(() => {
+          return this.socket.ioSocket.id;
+        })
+      );
+  }
+
   sendNickname(nickname: string): void {
     this.socket.emit('nickname', nickname);
   }
@@ -61,13 +86,5 @@ export class ChatService {
 
   setNumUnreadMessages(newValue): void {
     this.numUnreadMessages.next(newValue);
-  }
-
-  disconnect(): void {
-    this.socket.disconnect();
-  }
-
-  connect(): void {
-    this.socket.connect();
   }
 }

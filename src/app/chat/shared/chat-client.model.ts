@@ -1,5 +1,6 @@
 export interface ChatClient {
-  id: string;
+  id: number;
+  socketId?: string;
   nickname: string;
   typing?: boolean;
 }
