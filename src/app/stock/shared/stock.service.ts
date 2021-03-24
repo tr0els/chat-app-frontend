@@ -9,16 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class StockService {
 
-  constructor(private socketStocks: SocketStock) { }
+  constructor(private socketStock: SocketStock) { }
+
   create(stock: CreateStockDto): void {
-    this.socketStocks.emit('create-stock', stock);
+    this.socketStock.emit('create-stock', stock);
   }
 
   listenForCreateSuccess(): Observable<StockDto> {
-    return this.socketStocks.fromEvent<StockDto>('stock-created-success');
+    return this.socketStock.fromEvent<StockDto>('stock-created-success');
   }
 
   listenForCreateError(): Observable<string> {
-    return this.socketStocks.fromEvent<string>('stock-created-error');
+    return this.socketStock.fromEvent<string>('stock-created-error');
   }
 }
