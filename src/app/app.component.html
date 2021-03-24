@@ -4,13 +4,13 @@
     <ul>
       <li><a routerLink="/">Home</a></li>
       <li>
-        <a routerLink="/chats">Chat</a>
+        <a routerLink="/chat">Chat</a>
         <div class="tags">
           <span class="online" *ngIf="clients$ | async as clients">{{clients.length}} online</span>
           <span class="messages" *ngIf="unreadMessages > 0">{{unreadMessages}}+</span>
         </div>
       </li>
-      <li><a routerLink="/">Stocks</a></li>
+      <li><a routerLink="/stocks">Stocks</a></li>
     </ul>
   </nav>
   <router-outlet></router-outlet>
