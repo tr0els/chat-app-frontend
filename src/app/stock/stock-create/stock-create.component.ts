@@ -27,6 +27,7 @@ export class StockCreateComponent implements OnInit {
         this.stockForm.reset();
         this.stockCreate = stockCreate;
       });
+
     this.stockService.listenForCreateError()
       .subscribe(errorMessage => {
         this.error = errorMessage;

@@ -22,7 +22,7 @@ export class SocketStock extends Socket {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,10 @@
+<div *ngIf="stock">
+  <h2>Selected stock</h2>
+  <div>{{stock.name | uppercase}}</div>
+  <div><span>id: </span>{{stock.id}}</div>
+  <div><span>description: </span>{{stock.description}}</div>
+  <div><span>value: </span><input type="number" id="stockValue" value="{{stock.value | number : '1.2-2' }}">
+    <button (click)="add()">+</button>
+    <button (click)="subtract()">-</button>
+  </div>
+</div>

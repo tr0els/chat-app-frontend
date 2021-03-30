@@ -5,10 +5,11 @@ import { StockRoutingModule } from './stock-routing.module';
 import { StockComponent } from './stock.component';
 import { StockCreateComponent } from './stock-create/stock-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { StockDetailComponent } from './stock-detail/stock-detail.component';
 
 
 @NgModule({
-  declarations: [StockComponent, StockCreateComponent],
+  declarations: [StockComponent, StockCreateComponent, StockDetailComponent],
   imports: [
     CommonModule,
     StockRoutingModule,
