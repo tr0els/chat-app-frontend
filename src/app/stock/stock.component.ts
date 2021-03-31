@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Stock} from './shared/stock.model';
 import {Observable, Subject} from 'rxjs';
 import {StockService} from './shared/stock.service';
-import {ChatClient} from '../chat/shared/chat-client.model';
 
 @Component({
   selector: 'app-stock',
@@ -13,7 +12,6 @@ export class StockComponent implements OnInit, OnDestroy {
 
   unsubscribe$ = new Subject();
   stocks$: Observable<Stock[]> | undefined;
-
   selectedStock: Stock;
 
   constructor(private stockService: StockService) { }
