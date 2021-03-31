@@ -11,6 +11,7 @@ import {StockDto} from '../shared/stock.dto';
 export class StockDetailComponent implements OnInit {
   @Input() stock?: Stock;
   error: string | undefined;
+  stockUpdate: Stock | undefined;
 
   constructor(private stockService: StockService) { }
 
@@ -41,8 +42,13 @@ export class StockDetailComponent implements OnInit {
   update(): void {
     this.error = undefined;
     const stockValue = (document.getElementById('stockValue') as HTMLInputElement);
-    const stockDto: StockDto = this.stock;
-    stockDto.value = Number(stockValue.value);
-    this.stockService.update(stockDto);
+    const updateStockDto: Stock = {
+      id: this.stock.id,
+      name: this.stock.name,
+      description: this.stock.description,
+      value: Number(stockValue.value)
+    };
+
+    this.stockService.update(updateStockDto);
   }
 }

@@ -4,20 +4,12 @@ import { CreateStockDto } from './create-stock.dto';
 import { StockDto } from './stock.dto';
 import {Observable, of} from 'rxjs';
 import {Stock} from './stock.model';
+import {ChatClient} from '../../chat/shared/chat-client.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockService {
-
-  stocks: Stock[] = [
-    { id: '1', name: 'Stock nummer 1', description: 'dejlig stock', value: 123.00 },
-    { id: '2', name: 'Stock nummer 2', description: 'dejlig stock', value: 12.12 },
-    { id: '3', name: 'Stock nummer 3', description: 'dejlig stock', value: 321.123 },
-    { id: '4', name: 'Stock nummer 4', description: 'dejlig stock', value: 123 },
-    { id: '5', name: 'Stock nummer 5', description: 'dejlig stock', value: 123 },
-    { id: '6', name: 'Stock nummer 6', description: 'dejlig stock', value: 123 },
-  ];
 
   constructor(private socketStock: SocketStock) { }
 
@@ -33,8 +25,9 @@ export class StockService {
     return this.socketStock.fromEvent<string>('stock-created-error');
   }
 
-  update(stock: StockDto): void {
+  update(stock: Stock): void {
     this.socketStock.emit('stock-update', stock);
+    console.log('updating stock with id: ' + stock.id);
   }
 
   listenForUpdateSuccess(): Observable<StockDto> {
@@ -46,6 +39,10 @@ export class StockService {
   }
 
   listenForStocks(): Observable<Stock[]> {
-    return of(this.stocks);
+    return this.socketStock.fromEvent<Stock[]>('stocks');
+  }
+
+  sendWelcome(): void {
+    this.socketStock.emit('welcome');
   }
 }

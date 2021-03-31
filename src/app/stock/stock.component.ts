@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Stock} from './shared/stock.model';
 import {Observable, Subject} from 'rxjs';
 import {StockService} from './shared/stock.service';
+import {ChatClient} from '../chat/shared/chat-client.model';
 
 @Component({
   selector: 'app-stock',
@@ -11,23 +12,20 @@ import {StockService} from './shared/stock.service';
 export class StockComponent implements OnInit, OnDestroy {
 
   unsubscribe$ = new Subject();
-  stocks: Stock[] = [];
+  stocks$: Observable<Stock[]> | undefined;
+
   selectedStock: Stock;
 
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.listenForStocks();
+    this.stocks$ = this.stockService.listenForStocks();
+    this.stockService.sendWelcome();
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-  }
-
-  listenForStocks(): void {
-    this.stockService.listenForStocks()
-      .subscribe(stocks => this.stocks = stocks);
   }
 
   onSelect(stock: Stock): void {

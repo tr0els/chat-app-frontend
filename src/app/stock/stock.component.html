@@ -1,11 +1,9 @@
 <div class="wrapper shadow bg-white">
-  <h2>Stocks</h2>
-  <div>
-    <div *ngFor="let stock of stocks" (click)="onSelect(stock)">{{stock.name}} - {{stock.value | number : '1.2-2' }}</div>
-  </div>
-  <br>
   <a routerLink="./create/">Create new stock</a>
   <br>
-  <br>
+  <h2>Stocks</h2>
+  <div *ngIf="stocks$ | async as stocks">
+    <div *ngFor="let stock of stocks" (click)="onSelect(stock)">{{stock.name}} - {{stock.value | number : '1.2-2' }} id - {{stock.id}}</div>
+  </div>
   <app-stock-detail [stock]="selectedStock"></app-stock-detail>
 </div>

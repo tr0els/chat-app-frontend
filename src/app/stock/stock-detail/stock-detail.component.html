@@ -6,5 +6,10 @@
   <div><span>value: </span><input type="number" id="stockValue" value="{{stock.value | number : '1.2-2' }}">
     <button (click)="add()">+</button>
     <button (click)="subtract()">-</button>
+    <button (click)="update()">Update</button>
+  </div>
+  <h4 *ngIf="error" style="color: darkred">{{error}}</h4>
+  <div *ngIf="stockUpdate">
+    Updated: {{stockUpdate | json}}
   </div>
 </div>
