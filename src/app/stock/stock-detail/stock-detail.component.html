@@ -1,15 +1,21 @@
+<div *ngIf="!stock">
+  <h2>Please select a stock</h2>
+</div>
+
 <div *ngIf="stock">
-  <h2>Selected stock</h2>
-  <div>{{stock.name | uppercase}}</div>
-  <div><span>id: </span>{{stock.id}}</div>
-  <div><span>description: </span>{{stock.description}}</div>
-  <div><span>value: </span><input type="number" id="stockValue" value="{{stock.value | number : '1.2-2' }}">
-    <button (click)="add()">+</button>
-    <button (click)="subtract()">-</button>
-    <button (click)="update()">Update</button>
+  <h2>{{stock.name | uppercase}}</h2>
+  <br>
+  <h5>Description:</h5>{{stock.description}}
+  <br>
+  <br>
+  <div><input class="form-control" style="width: 100px; float: left;" type="number" id="stockValue" value="{{stock.value | number : '1.2-2' }}">
+    <button (click)="add()" class="btn btn-outline-primary ml-1">+</button>
+    <button (click)="subtract()" class="btn btn-outline-primary ml-1">-</button>
+    <button (click)="update()" class="btn btn-primary ml-3">Update</button>
   </div>
-  <h4 *ngIf="error" style="color: darkred">{{error}}</h4>
-  <div *ngIf="stockUpdate">
-    Updated: {{stockUpdate | json}}
-  </div>
+</div>
+
+<h4 *ngIf="error" style="color: darkred">{{error}}</h4>
+<div *ngIf="stockUpdate">
+  Updated: {{stockUpdate | json}}
 </div>

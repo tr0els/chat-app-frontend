@@ -1,9 +1,22 @@
 <div class="wrapper shadow bg-white">
-  <a routerLink="./create/">Create new stock</a>
-  <br>
-  <h2>Stocks</h2>
-  <div *ngIf="stocks$ | async as stocks">
-    <div *ngFor="let stock of stocks" (click)="onSelect(stock)">{{stock.name}} - {{stock.value | number : '1.2-2' }} id - {{stock.id}}</div>
+  <div class="container">
+    <div *ngIf="stocks$ | async as stocks" class="flex-grid">
+      <aside class="col sidebar">
+        <h2>Stocks</h2>
+        <ul>
+          <li *ngFor="let stock of stocks"
+              [class.selected]="stock === selectedStock"
+              (click)="onSelect(stock)">
+            <span class="name">{{stock.name}}</span><br>
+            <span class="value">{{stock.value | number : '1.2-2' }}<small>DKK</small></span>
+            <!--<span class="change">+4.48 (2.38%)</span>-->
+          </li>
+        </ul>
+        <button class="btn btn-primary" routerLink="./create/">Create new stock</button>
+      </aside>
+      <section class="col main">
+        <app-stock-detail [stock]="selectedStock"></app-stock-detail>
+      </section>
+    </div>
   </div>
-  <app-stock-detail [stock]="selectedStock"></app-stock-detail>
 </div>

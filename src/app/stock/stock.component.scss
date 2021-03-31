@@ -1,0 +1,82 @@
+@import "../../styles-bootstrap.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+
+.container {
+  margin: auto;
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+
+h2 {
+  // color: yellow;
+}
+
+.flex-grid {
+  display: flex;
+  margin: auto -1rem 1rem;
+}
+
+.col {
+  // background-color: #CCC;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 1rem;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+.main {
+  flex: 2;
+}
+
+
+.sidebar ul {
+  list-style-type: none;
+  margin-top: 18px;
+  padding: 0 10px 0 10px;
+  justify-content: space-between;
+
+}
+
+.sidebar li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  padding: 10px;
+  border-bottom: 1px solid #CCC;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  color: #2c3a41;
+  background-color: #EFEFEF;
+  left: .1em;
+}
+.sidebar li.selected {
+  background-color: $primary;
+  color: white;
+}
+.sidebar li.selected:hover {}
+.sidebar li.selected:active {}
+
+.sidebar li:last-child {
+  border-bottom: 0;
+}
+
+.sidebar li .name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sidebar li .value {
+  font-size: 18px;
+}
+
+.sidebar li .change {
+  font-size: 14px;
+  color: #399400;
+  padding: 2px 7px;
+}

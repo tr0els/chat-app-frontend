@@ -30,8 +30,8 @@ export class StockService {
     console.log('updating stock with id: ' + stock.id);
   }
 
-  listenForUpdateSuccess(): Observable<StockDto> {
-    return this.socketStock.fromEvent<StockDto>('stock-updated-success');
+  listenForUpdateSuccess(): Observable<Stock> {
+    return this.socketStock.fromEvent<Stock>('stock-updated-success');
   }
 
   listenForUpdateError(): Observable<string> {
