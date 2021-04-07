@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Socket, SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class SocketChat extends Socket {
@@ -29,6 +31,9 @@ export class SocketStock extends Socket {
     AppRoutingModule,
     SocketIoModule,
     [NgbModule],
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production
+    }),
     // NgxEmojiPickerModule.forRoot(),
   ],
   providers: [SocketChat, SocketStock],
