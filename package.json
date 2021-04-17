@@ -21,6 +21,7 @@
     "@angular/router": "~11.2.0",
     "@nestjs/config": "^0.6.3",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
+    "@ngxs/logger-plugin": "^3.7.1",
     "@ngxs/store": "^3.7.1",
     "bootstrap": "^4.6.0",
     "ngx-bootstrap": "^6.2.0",
