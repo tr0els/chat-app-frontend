@@ -7,6 +7,7 @@ import { Socket, SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
+import {ChatState} from './chat/state/chat.state';
 
 @Injectable()
 export class SocketChat extends Socket {

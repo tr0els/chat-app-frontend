@@ -5,6 +5,8 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import {debounceTime, subscribeOn, take, takeUntil} from 'rxjs/operators';
 import { ChatMessage } from './shared/chat-message.model';
 import { ChatClient } from './shared/chat-client.model';
+import {ChatState} from './state/chat.state';
+import {Select} from '@ngxs/store';
 
 @Component({
   selector: 'app-chat',
@@ -21,11 +23,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   clients$: Observable<ChatClient[]> | undefined;
   clientsTyping: ChatClient[] = [];
   unsubscribe$ = new Subject();
+  @Select(ChatState.clients) // get from state management
   error$: Observable<string> | undefined;
 
   currentDate = new Date();
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService) { } // add state management here
 
   ngOnInit(): void {
     console.log('Chat active');
