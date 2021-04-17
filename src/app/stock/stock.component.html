@@ -8,7 +8,7 @@
               [class.selected]="stock === selectedStock"
               (click)="onSelect(stock)">
             <span class="name">{{stock.name}}</span><br>
-            <span class="value">{{stock.value | number : '1.2-2' }}<small>DKK</small></span>
+            <span class="value">{{stock.value | number : '1.2-2' }}</span>
             <!--<span class="change">+4.48 (2.38%)</span>-->
           </li>
         </ul>
