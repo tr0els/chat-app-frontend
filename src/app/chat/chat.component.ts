@@ -23,7 +23,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   clients$: Observable<ChatClient[]> | undefined;
   clientsTyping: ChatClient[] = [];
   unsubscribe$ = new Subject();
-  @Select(ChatState.clients) // get from state management
+  // @Select(ChatState.clients) // get from state management
   error$: Observable<string> | undefined;
 
   currentDate = new Date();

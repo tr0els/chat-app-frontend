@@ -35,7 +35,6 @@ export class SocketStock extends Socket {
     NgxsModule.forRoot([], {
       developmentMode: !environment.production
     }),
-    // NgxEmojiPickerModule.forRoot(),
   ],
   providers: [SocketChat, SocketStock],
   bootstrap: [AppComponent]
