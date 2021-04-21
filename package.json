@@ -29,7 +29,7 @@
     "ngx-socket-io": "^3.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "twemoji": "^13.0.1",
+    "twemoji": "^13.0.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
