@@ -12,7 +12,7 @@ import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
     CommonModule,
     ChatRoutingModule,
     ReactiveFormsModule,
-    NgxEmojiPickerModule, // slow as hellll
+    // NgxEmojiPickerModule, // realllly slow!
   ]
 })
 export class ChatModule { }

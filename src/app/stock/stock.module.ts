@@ -5,8 +5,8 @@ import { StockComponent } from './stock.component';
 import { StockCreateComponent } from './stock-create/stock-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StockDetailComponent } from './stock-detail/stock-detail.component';
-import { StockState } from './state/stock.state';
 import { NgxsModule } from '@ngxs/store';
+import { StockState } from './state/stock.state';
 
 @NgModule({
   declarations: [StockComponent, StockCreateComponent, StockDetailComponent],
